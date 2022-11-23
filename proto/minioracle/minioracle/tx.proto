@@ -1,0 +1,13 @@
+syntax = "proto3";
+package minioracle.minioracle;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "minioracle/x/minioracle/types";
+
+// Msg defines the Msg service.
+service Msg {
+    // this line is used by starport scaffolding # proto/tx/rpc
+}
+
+// this line is used by starport scaffolding # proto/tx/message
