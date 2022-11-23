@@ -3,10 +3,11 @@ package keeper
 import (
 	"context"
 
+	"minioracle/x/minioracle/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"minioracle/x/minioracle/types"
 )
 
 func (k Keeper) Say(goCtx context.Context, req *types.QuerySayRequest) (*types.QuerySayResponse, error) {
@@ -19,5 +20,5 @@ func (k Keeper) Say(goCtx context.Context, req *types.QuerySayRequest) (*types.Q
 	// TODO: Process the query
 	_ = ctx
 
-	return &types.QuerySayResponse{}, nil
+	return &types.QuerySayResponse{Text: "Say, Ignite CLI"}, nil
 }
