@@ -22,6 +22,10 @@ export interface MinioracleQueryParamsResponse {
   params?: MinioracleParams;
 }
 
+export interface MinioracleQuerySayResponse {
+  text?: string;
+}
+
 export interface ProtobufAny {
   "@type"?: string;
 }
@@ -169,6 +173,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<MinioracleQueryParamsResponse, RpcStatus>({
       path: `/minioracle/minioracle/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QuerySay
+   * @summary Queries a list of Say items.
+   * @request GET:/minioracle/minioracle/say
+   */
+  querySay = (params: RequestParams = {}) =>
+    this.request<MinioracleQuerySayResponse, RpcStatus>({
+      path: `/minioracle/minioracle/say`,
       method: "GET",
       format: "json",
       ...params,

@@ -14,6 +14,13 @@ export interface QueryParamsResponse {
   params: Params | undefined;
 }
 
+export interface QuerySayRequest {
+}
+
+export interface QuerySayResponse {
+  text: string;
+}
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -102,10 +109,98 @@ export const QueryParamsResponse = {
   },
 };
 
+function createBaseQuerySayRequest(): QuerySayRequest {
+  return {};
+}
+
+export const QuerySayRequest = {
+  encode(_: QuerySayRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QuerySayRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySayRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QuerySayRequest {
+    return {};
+  },
+
+  toJSON(_: QuerySayRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QuerySayRequest>, I>>(_: I): QuerySayRequest {
+    const message = createBaseQuerySayRequest();
+    return message;
+  },
+};
+
+function createBaseQuerySayResponse(): QuerySayResponse {
+  return { text: "" };
+}
+
+export const QuerySayResponse = {
+  encode(message: QuerySayResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.text !== "") {
+      writer.uint32(10).string(message.text);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QuerySayResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySayResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.text = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QuerySayResponse {
+    return { text: isSet(object.text) ? String(object.text) : "" };
+  },
+
+  toJSON(message: QuerySayResponse): unknown {
+    const obj: any = {};
+    message.text !== undefined && (obj.text = message.text);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QuerySayResponse>, I>>(object: I): QuerySayResponse {
+    const message = createBaseQuerySayResponse();
+    message.text = object.text ?? "";
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+  /** Queries a list of Say items. */
+  Say(request: QuerySayRequest): Promise<QuerySayResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -113,11 +208,18 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
+    this.Say = this.Say.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("minioracle.minioracle.Query", "Params", data);
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
+  }
+
+  Say(request: QuerySayRequest): Promise<QuerySayResponse> {
+    const data = QuerySayRequest.encode(request).finish();
+    const promise = this.rpc.request("minioracle.minioracle.Query", "Say", data);
+    return promise.then((data) => QuerySayResponse.decode(new _m0.Reader(data)));
   }
 }
 
