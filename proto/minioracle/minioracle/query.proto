@@ -5,6 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "minioracle/minioracle/params.proto";
+import "minioracle/minioracle/post.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "minioracle/x/minioracle/types";
@@ -45,11 +46,12 @@ message QuerySayResponse {
 }
 
 message QueryPostsRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
 }
 
 message QueryPostsResponse {
-  string title = 1;
-  string body = 2;
+  repeated Post Post = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 // this line is used by starport scaffolding # 3
