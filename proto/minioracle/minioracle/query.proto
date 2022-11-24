@@ -20,6 +20,11 @@ service Query {
 		option (google.api.http).get = "/minioracle/minioracle/say";
 	}
 
+// Queries a list of Posts items.
+	rpc Posts(QueryPostsRequest) returns (QueryPostsResponse) {
+		option (google.api.http).get = "/minioracle/minioracle/posts";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -37,6 +42,14 @@ message QuerySayRequest {
 
 message QuerySayResponse {
   string text = 1;
+}
+
+message QueryPostsRequest {
+}
+
+message QueryPostsResponse {
+  string title = 1;
+  string body = 2;
 }
 
 // this line is used by starport scaffolding # 3

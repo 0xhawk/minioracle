@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package minioracle.minioracle;
+
+option go_package = "minioracle/x/minioracle/types";
+
+message Post {
+    string creator = 1;
+    uint64 id = 2;
+    string title = 3;
+    string body = 4;
+}

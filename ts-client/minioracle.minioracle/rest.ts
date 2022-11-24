@@ -9,6 +9,11 @@
  * ---------------------------------------------------------------
  */
 
+export interface MinioracleMsgCreatePostResponse {
+  /** @format uint64 */
+  id?: string;
+}
+
 /**
  * Params defines the parameters for the module.
  */
@@ -20,6 +25,11 @@ export type MinioracleParams = object;
 export interface MinioracleQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: MinioracleParams;
+}
+
+export interface MinioracleQueryPostsResponse {
+  title?: string;
+  body?: string;
 }
 
 export interface MinioracleQuerySayResponse {
@@ -173,6 +183,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<MinioracleQueryParamsResponse, RpcStatus>({
       path: `/minioracle/minioracle/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryPosts
+   * @summary Queries a list of Posts items.
+   * @request GET:/minioracle/minioracle/posts
+   */
+  queryPosts = (params: RequestParams = {}) =>
+    this.request<MinioracleQueryPostsResponse, RpcStatus>({
+      path: `/minioracle/minioracle/posts`,
       method: "GET",
       format: "json",
       ...params,

@@ -1,8 +1,6 @@
 package keeper
 
-import (
-	"minioracle/x/minioracle/types"
-)
+import "minioracle/x/minioracle/types"
 
 type msgServer struct {
 	Keeper
