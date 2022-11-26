@@ -3,6 +3,7 @@ package minioracle.minioracle;
 
 import "gogoproto/gogo.proto";
 import "minioracle/minioracle/params.proto";
+import "minioracle/minioracle/comment.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "minioracle/x/minioracle/types";
@@ -10,5 +11,7 @@ option go_package = "minioracle/x/minioracle/types";
 // GenesisState defines the minioracle module's genesis state.
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
+  repeated Comment commentList = 2 [(gogoproto.nullable) = false];
+  uint64 commentCount = 3;
   // this line is used by starport scaffolding # genesis/proto/state
 }
